@@ -47,8 +47,8 @@ unless footballApiKey
   throw "You must enter your HUBOT_FOOTBALL_ACCOUNT_KEY in your environment variables"
 
 module.exports = (robot) ->
-  robot.respond /(get me )?result (.*)/i, (msg) ->
-    team = escape( msg.match[2] )
+  robot.respond /(get )?(me )?(last )?result (.*)/i, (msg) ->
+    team = escape( msg.match[4] )
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures'
     msg.http( url )
       .headers( 'X-Auth-Token': footballApiKey, Accept: 'application/json' )
@@ -66,8 +66,8 @@ module.exports = (robot) ->
             last = value
         msg.send( last.homeTeamName + ' ' + last.result.goalsHomeTeam + ' - ' + last.result.goalsAwayTeam + ' ' + last.awayTeamName )
 
-  robot.respond /(get me )?match (.*)/i, (msg) ->
-    team = escape( msg.match[2] )
+  robot.respond /(get )?(me )?(next )?match (.*)/i, (msg) ->
+    team = escape( msg.match[4] )
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures'
     msg.http( url )
       .headers( 'X-Auth-Token': footballApiKey, Accept: 'application/json' )

@@ -44,9 +44,9 @@ if (!footballApiKey) {
 }
 
 module.exports = function(robot) {
-  robot.respond(/(get me )?result (.*)/i, function(msg) {
+  robot.respond(/(get )?(me )?(last )?result (.*)/i, function(msg) {
     var team, url;
-    team = escape(msg.match[2]);
+    team = escape(msg.match[4]);
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures';
     return msg.http(url).headers({
       'X-Auth-Token': footballApiKey,
@@ -71,9 +71,9 @@ module.exports = function(robot) {
       return msg.send(last.homeTeamName + ' ' + last.result.goalsHomeTeam + ' - ' + last.result.goalsAwayTeam + ' ' + last.awayTeamName);
     });
   });
-  return robot.respond(/(get me )?match (.*)/i, function(msg) {
+  return robot.respond(/(get )?(me )?(next )?match (.*)/i, function(msg) {
     var team, url;
-    team = escape(msg.match[2]);
+    team = escape(msg.match[4]);
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures';
     return msg.http(url).headers({
       'X-Auth-Token': footballApiKey,
