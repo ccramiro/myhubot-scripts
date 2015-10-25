@@ -14,27 +14,21 @@
 #   ccramiro
 
 clubs =
-  afc: 57 # Arsenal
-  arsenal: 57
+  afc: 57, arsenal: 57 # Arsenal
   avfc: 58 # Aston Villa
   cfc: 61 # Chelsea
   efc: 62 # Everton
-  fulham: 63
-  liv: 64 # Liverpool
-  lfc: 64
-  manc: 65 # Manchester City
-  mcfc: 65
-  mufc: 66 # Manchester United
-  manu: 66
+  fulham: 63 
+  liv: 64, lfc: 64 # Liverpool
+  manc: 65, mcfc: 65 # Manchester City
+  mufc: 66, manu: 66 # Manchester United
   thfc: 73 # Tottenham
-  bil: 77 # Athletic Bilbao
-  ath: 77
+  bil: 77, ath: 77 # Athletic Bilbao
   atm: 78 # Atletico Madrid
   fcb: 81 # Barcelona
   fcg: 82 # Getafe
   mal: 84 # Málaga
-  rma: 86 # Real Madrid
-  mad: 86
+  rma: 86, mad: 86 # Real Madrid
   rss: 92 # Real Sociedad
   vcf: 94 # Villareal
   val: 95 # Valencia
@@ -45,11 +39,11 @@ unless footballApiKey
   throw "You must enter your HUBOT_FOOTBALL_ACCOUNT_KEY in your environment variables"
 
 module.exports = (robot) ->
-  robot.respond /get me result (.*)/i, (msg) ->
-    team = escape(msg.match[1])
+  robot.respond /(get me )?result (.*)/i, (msg) ->
+    team = escape( msg.match[2] )
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures'
     msg.http( url )
-      .headers('X-Auth-Token': footballApiKey, Accept: 'application/json')
+      .headers( 'X-Auth-Token': footballApiKey, Accept: 'application/json' )
       .get() (err, res, body) ->
         json = JSON.parse(body)
         first = json.fixtures

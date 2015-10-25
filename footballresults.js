@@ -35,9 +35,9 @@ if (!footballApiKey) {
 }
 
 module.exports = function(robot) {
-  return robot.respond(/get me result (.*)/i, function(msg) {
+  return robot.respond(/(get me )?result (.*)/i, function(msg) {
     var team, url;
-    team = escape(msg.match[1]);
+    team = escape(msg.match[2]);
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures';
     return msg.http(url).headers({
       'X-Auth-Token': footballApiKey,
