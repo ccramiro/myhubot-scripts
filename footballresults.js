@@ -2,6 +2,15 @@
 var clubs, footballApiKey;
 
 clubs = {
+  koln: 1,
+  blv: 3,
+  bvb: 4,
+  bmn: 5,
+  bfc: 5,
+  s04: 6,
+  wob: 11,
+  bmg: 18,
+  dus: 24,
   afc: 57,
   arsenal: 57,
   avfc: 58,

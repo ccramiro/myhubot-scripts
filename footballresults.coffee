@@ -14,6 +14,14 @@
 #   ccramiro
 
 clubs =
+  koln: 1
+  blv: 3 # Bayer Leverkusen
+  bvb: 4 # Borussia Dortmund
+  bmn: 5, bfc: 5 # Bayern Muenchen
+  s04: 6 # Schalke 04
+  wob: 11 # Wolfsburg
+  bmg: 18 # Bor Moenchengladbach
+  dus: 24 # Fortune Duesseldorf
   afc: 57, arsenal: 57 # Arsenal
   avfc: 58 # Aston Villa
   cfc: 61 # Chelsea
