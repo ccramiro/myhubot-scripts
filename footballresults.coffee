@@ -47,6 +47,9 @@ module.exports = (robot) ->
       .get() (err, res, body) ->
         json = JSON.parse(body)
         first = json.fixtures
+        unless first
+          msg.send( team + '? No idea what is that, sorry man' )
+          return
         last = json.fixtures[0]
         for key,value of first
           if value.status == 'TIMED'

@@ -46,6 +46,10 @@ module.exports = function(robot) {
       var first, json, key, last, value;
       json = JSON.parse(body);
       first = json.fixtures;
+      if (!first) {
+        msg.send(team + '? No idea what is that, sorry man');
+        return;
+      }
       last = json.fixtures[0];
       for (key in first) {
         value = first[key];
