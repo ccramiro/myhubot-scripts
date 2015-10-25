@@ -1,5 +1,5 @@
-clubs = 
-  atm: 78 
+clubs =
+  atm: 78
   ars: 57
   rma: 86
   liv: 64
