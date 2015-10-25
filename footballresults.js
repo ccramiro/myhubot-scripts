@@ -44,7 +44,7 @@ if (!footballApiKey) {
 }
 
 module.exports = function(robot) {
-  return robot.respond(/(get me )?result (.*)/i, function(msg) {
+  robot.respond(/(get me )?result (.*)/i, function(msg) {
     var team, url;
     team = escape(msg.match[2]);
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures';
@@ -69,6 +69,32 @@ module.exports = function(robot) {
         }
       }
       return msg.send(last.homeTeamName + ' ' + last.result.goalsHomeTeam + ' - ' + last.result.goalsAwayTeam + ' ' + last.awayTeamName);
+    });
+  });
+  return robot.respond(/(get me )?match (.*)/i, function(msg) {
+    var team, url;
+    team = escape(msg.match[2]);
+    url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures';
+    return msg.http(url).headers({
+      'X-Auth-Token': footballApiKey,
+      Accept: 'application/json'
+    }).get()(function(err, res, body) {
+      var first, json, key, last, value;
+      json = JSON.parse(body);
+      first = json.fixtures;
+      if (!first) {
+        msg.send(team + '? No idea what is that, sorry man');
+        return;
+      }
+      last = json.fixtures[0];
+      for (key in first) {
+        value = first[key];
+        last = value;
+        if (value.status === 'TIMED') {
+          break;
+        }
+      }
+      return msg.send(last.homeTeamName + ' - ' + last.awayTeamName + ' will be on ' + last.date);
     });
   });
 };

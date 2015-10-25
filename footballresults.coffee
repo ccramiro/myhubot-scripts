@@ -65,3 +65,21 @@ module.exports = (robot) ->
           else
             last = value
         msg.send( last.homeTeamName + ' ' + last.result.goalsHomeTeam + ' - ' + last.result.goalsAwayTeam + ' ' + last.awayTeamName )
+
+  robot.respond /(get me )?match (.*)/i, (msg) ->
+    team = escape( msg.match[2] )
+    url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures'
+    msg.http( url )
+      .headers( 'X-Auth-Token': footballApiKey, Accept: 'application/json' )
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        first = json.fixtures
+        unless first
+          msg.send( team + '? No idea what is that, sorry man' )
+          return
+        last = json.fixtures[0]
+        for key,value of first
+          last = value
+          if value.status == 'TIMED'
+            break
+        msg.send( last.homeTeamName + ' - ' + last.awayTeamName + ' will be on ' + last.date )
