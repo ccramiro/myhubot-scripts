@@ -1,3 +1,18 @@
+# Description:
+#   Get last result from football team
+#
+# Dependencies:
+#   None
+#
+# Configuration:
+#   HUBOT_FOOTBALL_ACCOUNT_KEY
+#
+# Commands:
+#   hubot get me result <team> - Displays last result of football team
+#
+# Author:
+#   ccramiro
+
 clubs =
   atm: 78
   ars: 57
