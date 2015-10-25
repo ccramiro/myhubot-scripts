@@ -2,12 +2,30 @@
 var clubs, footballApiKey;
 
 clubs = {
-  atm: 78,
-  ars: 57,
-  rma: 86,
+  afc: 57,
+  arsenal: 57,
+  avfc: 58,
+  cfc: 61,
+  efc: 62,
+  fulham: 63,
   liv: 64,
+  lfc: 64,
+  manc: 65,
+  mcfc: 65,
+  mufc: 66,
+  manu: 66,
+  thfc: 73,
+  bil: 77,
+  ath: 77,
+  atm: 78,
   fcb: 81,
-  manc: 65
+  fcg: 82,
+  mal: 84,
+  rma: 86,
+  mad: 86,
+  rss: 92,
+  vcf: 94,
+  val: 95
 };
 
 footballApiKey = process.env.HUBOT_FOOTBALL_ACCOUNT_KEY;
