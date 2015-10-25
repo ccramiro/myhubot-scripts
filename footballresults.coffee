@@ -6,12 +6,16 @@ clubs =
   fcb: 81
   manc: 65
 
+footballApiKey = process.env.HUBOT_FOOTBALL_ACCOUNT_KEY
+unless footballApiKey
+  throw "You must enter your HUBOT_FOOTBALL_ACCOUNT_KEY in your environment variables"
+
 module.exports = (robot) ->
   robot.respond /get me result (.*)/i, (msg) ->
     team = escape(msg.match[1])
     url = 'http://api.football-data.org/alpha/teams/' + clubs[team] + '/fixtures'
     msg.http( url )
-      .headers(Accept: 'application/json')
+      .headers('X-Auth-Token': footballApiKey, Accept: 'application/json')
       .get() (err, res, body) ->
         json = JSON.parse(body)
         first = json.fixtures
