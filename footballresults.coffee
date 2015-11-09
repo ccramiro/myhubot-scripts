@@ -1,5 +1,5 @@
 # Description:
-#   Get last result from football team
+#   Get last result from football team and league table
 #
 # Dependencies:
 #   None
@@ -10,9 +10,11 @@
 # Commands:
 #   hubot get me last result <team> - Displays last result of football team
 #   hubot get me next match <team> - Displays date of next match
+#   hubot get me league table <league> Displays league table
 #
 # Notes:
 #   More teams at http://api.football-data.org/alpha/teams/{id}
+#   More leagues at http://api.football-data.org/alpha/soccerseasons/{id}leagueTable
 #
 # Author:
 #   ccramiro
