@@ -108,7 +108,7 @@ module.exports = function(robot) {
   return robot.respond(/(get )?(me )?(league )?table (.*)/i, function(msg) {
     var leaguetable, url;
     leaguetable = escape(msg.match[4]);
-    url = 'http://api.football-data.org/alpha/soccerseasons/' + leagueTables[leaguetable] + '/leagueTable';
+    url = 'http://api.football-data.org/alpha/soccerseasons/' + leagueTables[leaguetable.toLowerCase()] + '/leagueTable';
     return msg.http(url).headers({
       'X-Auth-Token': footballApiKey,
       Accept: 'application/json'

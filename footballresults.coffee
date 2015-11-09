@@ -97,7 +97,7 @@ module.exports = (robot) ->
 
   robot.respond /(get )?(me )?(league )?table (.*)/i, (msg) ->
     leaguetable = escape( msg.match[4] )
-    url = 'http://api.football-data.org/alpha/soccerseasons/' + leagueTables[leaguetable] + '/leagueTable'
+    url = 'http://api.football-data.org/alpha/soccerseasons/' + leagueTables[leaguetable.toLowerCase()] + '/leagueTable'
     msg.http( url )
       .headers( 'X-Auth-Token': footballApiKey, Accept: 'application/json' )
       .get() (err, res, body) ->
