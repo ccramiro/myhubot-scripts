@@ -38,7 +38,13 @@ teams = {
 };
 
 leagueTables = {
-  primera: 399
+  primera: 399,
+  bundesliga: 394,
+  premier: 398,
+  ligue1: 396,
+  ligue: 396,
+  serie: 401,
+  seriea: 401
 };
 
 footballApiKey = process.env.HUBOT_FOOTBALL_ACCOUNT_KEY;
