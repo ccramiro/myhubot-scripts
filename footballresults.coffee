@@ -48,6 +48,8 @@ teams =
   vcf: 94 # Villareal
   val: 95 # Valencia
 
+leagueTables =
+  primera: 399
 
 footballApiKey = process.env.HUBOT_FOOTBALL_ACCOUNT_KEY
 unless footballApiKey
@@ -63,7 +65,7 @@ module.exports = (robot) ->
         json = JSON.parse(body)
         first = json.fixtures
         unless first
-          msg.send( team + '? No idea what is that, sorry man' )
+          msg.send( team + '? Is that really a football team? Couldn\'t find it, sorry dude' )
           return
         for key,value of first
           if value.status == 'TIMED'
@@ -81,10 +83,25 @@ module.exports = (robot) ->
         json = JSON.parse(body)
         first = json.fixtures
         unless first
-          msg.send( team + '? No idea what is that, sorry man' )
+          msg.send( team + '? No idea what that is, sorry man' )
           return
         for key,value of first
           last = value
           if value.status == 'TIMED'
             break
         msg.send( last.homeTeamName + ' - ' + last.awayTeamName + ' will be on ' + last.date )
+
+  robot.respond /(get )?(me )?(league )?table (.*)/i, (msg) ->
+    leaguetable = escape( msg.match[4] )
+    url = 'http://api.football-data.org/alpha/soccerseasons/' + leagueTables[leaguetable] + '/leagueTable'
+    msg.http( url )
+      .headers( 'X-Auth-Token': footballApiKey, Accept: 'application/json' )
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        positions = json.standing
+        unless positions
+          msg.send( leaguetable + '? I can\'t find that league, I am sorry bro' )
+          return
+        msg.send( json.leagueCaption + ' - Match Day ' + json.matchday )
+        for key,value of positions
+          msg.send( value.position + '. ' + value.teamName + '  ' + value.points + '  ( ' + value.goals + ' - ' + value.goalsAgainst + ' )')
