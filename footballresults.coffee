@@ -48,7 +48,7 @@ teams =
   rma: 86, mad: 86 # Real Madrid
   rss: 92 # Real Sociedad
   vcf: 94 # Villareal
-  val: 95 # Valencia
+  val: 95 # Valencia
 
 leagueTables =
   primera: 399
@@ -59,7 +59,7 @@ leagueTables =
 
 footballApiKey = process.env.HUBOT_FOOTBALL_ACCOUNT_KEY
 unless footballApiKey
-  throw "You must enter your HUBOT_FOOTBALL_ACCOUNT_KEY in your environment variables"
+  console.log "You must enter your HUBOT_FOOTBALL_ACCOUNT_KEY in your environment variables"
 
 module.exports = (robot) ->
   robot.respond /(get )?(me )?(last )?result (.*)/i, (msg) ->
@@ -108,6 +108,7 @@ module.exports = (robot) ->
         unless positions
           msg.send( leaguetable + '? I can\'t find that league, I am sorry bro' )
           return
-        msg.send( json.leagueCaption + ' - Match Day ' + json.matchday )
+        message = json.leagueCaption + ' - Match Day ' + json.matchday + '\n'
         for key,value of positions
-          msg.send( value.position + '. ' + value.teamName + '  ' + value.points + '  ( ' + value.goals + ' - ' + value.goalsAgainst + ' )')
+          message = message + value.position + '. ' + value.teamName + '  ' + value.points + '  ( ' + value.goals + ' - ' + value.goalsAgainst + ' )\n'
+        msg.send( message )

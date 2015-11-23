@@ -50,7 +50,7 @@ leagueTables = {
 footballApiKey = process.env.HUBOT_FOOTBALL_ACCOUNT_KEY;
 
 if (!footballApiKey) {
-  throw "You must enter your HUBOT_FOOTBALL_ACCOUNT_KEY in your environment variables";
+  console.log("You must enter your HUBOT_FOOTBALL_ACCOUNT_KEY in your environment variables");
 }
 
 module.exports = function(robot) {
@@ -113,20 +113,19 @@ module.exports = function(robot) {
       'X-Auth-Token': footballApiKey,
       Accept: 'application/json'
     }).get()(function(err, res, body) {
-      var json, key, positions, results, value;
+      var json, key, message, positions, value;
       json = JSON.parse(body);
       positions = json.standing;
       if (!positions) {
         msg.send(leaguetable + '? I can\'t find that league, I am sorry bro');
         return;
       }
-      msg.send(json.leagueCaption + ' - Match Day ' + json.matchday);
-      results = [];
+      message = json.leagueCaption + ' - Match Day ' + json.matchday + '\n';
       for (key in positions) {
         value = positions[key];
-        results.push(msg.send(value.position + '. ' + value.teamName + '  ' + value.points + '  ( ' + value.goals + ' - ' + value.goalsAgainst + ' )'));
+        message = message + value.position + '. ' + value.teamName + '  ' + value.points + '  ( ' + value.goals + ' - ' + value.goalsAgainst + ' )\n';
       }
-      return results;
+      return msg.send(message);
     });
   });
 };
